@@ -1,7 +1,7 @@
 package beta
 
 import (
-	"github.com/mattfan00/gomite/pkg/utl/server"
+	"github.com/mattfan00/gomite/pkg/server"
 
 	"github.com/labstack/echo/v4"
 )
