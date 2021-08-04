@@ -19,10 +19,17 @@ func NewHTTP(e *echo.Echo, svc auth.Service) {
 	}
 
 	a.GET("/current", r.current)
+	a.POST("/register", r.register)
 }
 
 func (r routeHandler) current(c echo.Context) error {
 	str := r.svc.Current()
 
 	return c.JSON(http.StatusOK, str)
+}
+
+func (r routeHandler) register(c echo.Context) error {
+	r.svc.Register()
+
+	return c.JSON(http.StatusOK, "registered!")
 }

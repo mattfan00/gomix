@@ -18,7 +18,7 @@ func NewHTTP(e *echo.Echo, svc article.Service) {
 		svc: svc,
 	}
 
-	a.GET("/", r.get)
+	a.GET("", r.get)
 }
 
 func (r routeHandler) get(c echo.Context) error {
