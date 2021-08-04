@@ -7,11 +7,9 @@ COPY go.sum .
 
 RUN go mod download
 
-COPY cmd/auth cmd/auth
-COPY svc/auth svc/auth
-COPY pkg pkg
+COPY . .
 
-RUN go build -o /bin/main cmd/auth/main.go
+RUN go build -o /bin/main cmd/main.go
 
 EXPOSE 8080
 
