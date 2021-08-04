@@ -17,7 +17,7 @@ func New() *echo.Echo {
 		AllowCredentials: true,
 	}))
 
-	//e.HTTPErrorHandler = errors.CustomHTTPErrorHandler
+	e.HTTPErrorHandler = customHTTPErrorHandler
 
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(200, "Health check")
