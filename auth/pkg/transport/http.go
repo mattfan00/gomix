@@ -3,15 +3,16 @@ package transport
 import (
 	"net/http"
 
+	"github.com/mattfan00/gomite/auth/pkg/service"
+
 	"github.com/labstack/echo/v4"
-	"github.com/mattfan00/gomite/svc/auth"
 )
 
 type routeHandler struct {
-	svc auth.Service
+	svc service.Service
 }
 
-func NewHTTP(e *echo.Echo, svc auth.Service) {
+func NewHTTP(e *echo.Echo, svc service.Service) {
 	a := e.Group("/auth")
 
 	r := routeHandler{

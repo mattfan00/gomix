@@ -1,18 +1,10 @@
 version: "3.9"
 services:
-  auth: 
-    build: 
+  auth:
+    build:
       context: .
       dockerfile: images/auth/Dockerfile
     image: mattfan00/gomite-auth
     container_name: gomite-auth
     ports:
-      - "8080:8080" 
-  article: 
-    build: 
-      context: .
-      dockerfile: images/article/Dockerfile
-    image: mattfan00/gomite-article
-    container_name: gomite-article
-    ports:
-      - "8081:8081" 
+      - "8080:8080"
