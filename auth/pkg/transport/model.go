@@ -1,5 +1,9 @@
 package transport
 
+import (
+	"github.com/mattfan00/gomite/utl/entity"
+)
+
 type loginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -15,5 +19,6 @@ type registerRequest struct {
 }
 
 type registerResponse struct {
-	Users []string `json:"users"`
+	User  entity.User `json:"user"`
+	Token string      `json:"token"`
 }

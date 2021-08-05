@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   auth:
-    build: auth
+    build: 
+      context: .
+      dockerfile: auth/Dockerfile
     image: mattfan00/gomite-auth
     container_name: gomite-auth
     ports:

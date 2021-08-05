@@ -4,8 +4,7 @@ import (
 	"github.com/mattfan00/gomite/auth/pkg/platform/memory"
 	"github.com/mattfan00/gomite/auth/pkg/service"
 	"github.com/mattfan00/gomite/auth/pkg/transport"
-
-	"github.com/mattfan00/gomite/utl/http"
+	"github.com/mattfan00/gomite/utl/transport/http"
 )
 
 func main() {

@@ -7,7 +7,8 @@ COPY go.sum .
 
 RUN go mod download
 
-COPY . .
+COPY auth .
+COPY utl .
 
 RUN go build -o /bin/main cmd/main.go
 

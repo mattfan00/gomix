@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/mattfan00/gomite/auth/pkg/service"
+	"github.com/mattfan00/gomite/utl/middleware"
 )
 
 type routeHandler struct {
@@ -16,7 +17,7 @@ func NewHTTP(e *echo.Echo, svc service.Service) {
 
 	r := routeHandler{svc: svc}
 
-	a.GET("/current", r.current)
+	a.GET("/current", r.current, middleware.Auth)
 	a.POST("/register", r.register)
 	a.POST("/login", r.login)
 }
@@ -33,13 +34,14 @@ func (r routeHandler) register(c echo.Context) error {
 		return err
 	}
 
-	users, err := r.svc.Register(body.Username, body.Password)
+	newUser, token, err := r.svc.Register(body.Username, body.Password)
 	if err != nil {
 		return err
 	}
 
 	return c.JSON(http.StatusOK, registerResponse{
-		Users: users,
+		User:  newUser,
+		Token: token,
 	})
 }
 

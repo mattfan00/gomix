@@ -1,20 +1,29 @@
 package memory
 
+import (
+	"github.com/mattfan00/gomite/utl/entity"
+)
+
 type Memory interface {
-	Register(string, string) ([]string, error)
+	Register(string, string) (entity.User, error)
 }
 
 type memory struct {
-	users []string
+	users []entity.User
 }
 
 func New() *memory {
 	return &memory{
-		users: []string{},
+		users: []entity.User{},
 	}
 }
 
-func (m *memory) Register(username string, password string) ([]string, error) {
-	m.users = append(m.users, username)
-	return m.users, nil
+func (m *memory) Register(username string, password string) (entity.User, error) {
+	newUser := entity.User{
+		Username: username,
+		Password: password,
+	}
+
+	m.users = append(m.users, newUser)
+	return newUser, nil
 }

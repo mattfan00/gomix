@@ -2,11 +2,12 @@ package service
 
 import (
 	"github.com/mattfan00/gomite/auth/pkg/platform/memory"
+	"github.com/mattfan00/gomite/utl/entity"
 )
 
 type Service interface {
 	Current() string
-	Register(string, string) ([]string, error)
+	Register(string, string) (entity.User, string, error)
 	Login(string, string) (string, error)
 }
 
