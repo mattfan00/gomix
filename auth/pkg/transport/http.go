@@ -28,9 +28,19 @@ func (r routeHandler) current(c echo.Context) error {
 }
 
 func (r routeHandler) register(c echo.Context) error {
-	r.svc.Register()
+	body := registerRequest{}
+	if err := c.Bind(&body); err != nil {
+		return err
+	}
 
-	return c.JSON(http.StatusOK, "registered!")
+	users, err := r.svc.Register(body.Username, body.Password)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, registerResponse{
+		Users: users,
+	})
 }
 
 func (r routeHandler) login(c echo.Context) error {
@@ -39,7 +49,10 @@ func (r routeHandler) login(c echo.Context) error {
 		return err
 	}
 
-	message, _ := r.svc.Login(body.Username, body.Password)
+	message, err := r.svc.Login(body.Username, body.Password)
+	if err != nil {
+		return err
+	}
 
 	return c.JSON(http.StatusOK, loginResponse{
 		Message: message,
