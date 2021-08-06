@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/mattfan00/gomite/utl/entity"
-	"github.com/mattfan00/gomite/utl/jwt"
 
 	jwtGo "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
@@ -14,21 +13,27 @@ var (
 	ErrInvalidCredentials = echo.NewHTTPError(http.StatusUnauthorized, "Invalid credentials")
 )
 
-func (s service) Current() string {
-	return "this is me"
-}
-
-func (s service) Register(username string, password string) (entity.User, string, error) {
+func (s service) Register(username string, password string) (entity.User, entity.AuthToken, error) {
 	newUser, err := s.mem.Register(username, password)
 
-	token, err := jwt.GenerateToken(jwtGo.MapClaims{
-		"u": username,
-	})
+	tokenClaims := jwtGo.MapClaims{"u": username}
+
+	accessToken, err := s.atg.GenerateToken(tokenClaims)
 	if err != nil {
-		return entity.User{}, "", err
+		return entity.User{}, entity.AuthToken{}, err
 	}
 
-	return newUser, token, err
+	refreshToken, err := s.rtg.GenerateToken(tokenClaims)
+	if err != nil {
+		return entity.User{}, entity.AuthToken{}, err
+	}
+
+	authToken := entity.AuthToken{
+		Access:  accessToken,
+		Refresh: refreshToken,
+	}
+
+	return newUser, authToken, err
 }
 
 func (s service) Login(username string, password string) (string, error) {

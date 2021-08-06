@@ -7,19 +7,38 @@ import (
 )
 
 var (
-	ErrSigningToken   = errors.New("Error signing token")
-	ErrTokenInvalid   = errors.New("Token is invalid")
-	ErrTokenExpired   = errors.New("Token is expired")
-	ErrTokenMalformed = errors.New("Token is malformed")
-	ErrTokenNotValid  = errors.New("Token is not valid yet")
+	ErrSigningToken            = errors.New("Error signing token")
+	ErrTokenInvalid            = errors.New("Token is invalid")
+	ErrTokenExpired            = errors.New("Token is expired")
+	ErrTokenMalformed          = errors.New("Token is malformed")
+	ErrTokenNotValid           = errors.New("Token is not valid yet")
+	ErrUnexpectedSigningMethod = errors.New("Unexpected signing method")
 )
 
-func GenerateToken(claims jwt.Claims) (string, error) {
-	signingKey := []byte("hey")
+type TokenGenerator interface {
+	GenerateToken(jwt.Claims) (string, error)
+}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+type TokenParser interface {
+	ParseToken(string) (*jwt.Token, error)
+}
 
-	tokenString, err := token.SignedString(signingKey)
+type service struct {
+	key    []byte
+	method jwt.SigningMethod
+}
+
+func New(key string, method jwt.SigningMethod) service {
+	return service{
+		key:    []byte(key),
+		method: method,
+	}
+}
+
+func (s service) GenerateToken(claims jwt.Claims) (string, error) {
+	token := jwt.NewWithClaims(s.method, claims)
+
+	tokenString, err := token.SignedString(s.key)
 	if err != nil {
 		return "", ErrSigningToken
 	}
@@ -27,11 +46,13 @@ func GenerateToken(claims jwt.Claims) (string, error) {
 	return tokenString, nil
 }
 
-func ParseToken(tokenString string) (*jwt.Token, error) {
-	signingKey := []byte("hey")
-
+func (s service) ParseToken(tokenString string) (*jwt.Token, error) {
 	parsedToken, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return signingKey, nil
+		if token.Method != s.method {
+			return nil, ErrUnexpectedSigningMethod
+		}
+
+		return s.key, nil
 	})
 
 	if err != nil {

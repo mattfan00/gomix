@@ -19,6 +19,6 @@ type registerRequest struct {
 }
 
 type registerResponse struct {
-	User  entity.User `json:"user"`
-	Token string      `json:"token"`
+	User   entity.User      `json:"user"`
+	Tokens entity.AuthToken `json:"tokens"`
 }
