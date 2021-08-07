@@ -1,7 +1,7 @@
 package pg
 
 import (
-	"github.com/mattfan00/gomite/utl/entity"
+	"github.com/mattfan00/gomix/utl/entity"
 
 	"github.com/go-pg/pg/v10"
 )

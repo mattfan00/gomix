@@ -3,8 +3,8 @@ package transport
 import (
 	"net/http"
 
-	"github.com/mattfan00/gomite/auth/pkg/service"
-	"github.com/mattfan00/gomite/utl/entity"
+	"github.com/mattfan00/gomix/auth/pkg/service"
+	"github.com/mattfan00/gomix/utl/entity"
 
 	"github.com/labstack/echo/v4"
 )

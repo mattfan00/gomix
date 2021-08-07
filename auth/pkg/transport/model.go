@@ -1,7 +1,7 @@
 package transport
 
 import (
-	"github.com/mattfan00/gomite/utl/entity"
+	"github.com/mattfan00/gomix/utl/entity"
 )
 
 type loginRequest struct {

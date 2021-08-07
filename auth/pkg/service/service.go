@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/mattfan00/gomite/auth/pkg/platform/pg"
-	"github.com/mattfan00/gomite/utl/entity"
-	"github.com/mattfan00/gomite/utl/jwt"
+	"github.com/mattfan00/gomix/auth/pkg/platform/pg"
+	"github.com/mattfan00/gomix/utl/entity"
+	"github.com/mattfan00/gomix/utl/jwt"
 )
 
 type Service interface {

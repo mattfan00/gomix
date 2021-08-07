@@ -3,7 +3,7 @@ package service
 import (
 	"net/http"
 
-	"github.com/mattfan00/gomite/utl/entity"
+	"github.com/mattfan00/gomix/utl/entity"
 
 	jwtGo "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
