@@ -10,7 +10,7 @@ RUN go mod download
 COPY auth .
 COPY utl .
 
-RUN go build -o /bin/main cmd/main.go
+RUN go build -o /bin/main cmd/auth/main.go
 
 EXPOSE 8080
 
