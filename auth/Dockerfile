@@ -7,12 +7,14 @@ COPY go.sum .
 
 RUN go mod download
 
-COPY auth .
-COPY utl .
+COPY auth auth
+COPY utl utl
 
-RUN go build -o /bin/main cmd/auth/main.go
+RUN go build -o auth/bin/main auth/cmd/main.go
 
 EXPOSE 8080
 
-CMD [ "/bin/main" ]
+WORKDIR /app/auth
+
+CMD [ "bin/main" ]
 
