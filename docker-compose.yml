@@ -4,7 +4,7 @@ services:
     build: 
       context: .
       dockerfile: auth/Dockerfile
-    image: mattfan00/gomite-auth
-    container_name: gomite-auth
+    image: mattfan00/gomix-auth
+    container_name: gomix-auth
     ports:
       - "8080:8080"
