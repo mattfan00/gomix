@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/mattfan00/gomite/auth/pkg/platform/memory"
+	"github.com/mattfan00/gomite/auth/pkg/platform/pg"
 	"github.com/mattfan00/gomite/utl/entity"
 	"github.com/mattfan00/gomite/utl/jwt"
 )
@@ -12,14 +12,14 @@ type Service interface {
 }
 
 type service struct {
-	mem memory.Memory
+	pg  pg.Store
 	atg jwt.TokenGenerator // access token generator
 	rtg jwt.TokenGenerator // refresh token generator
 }
 
-func New(mem memory.Memory, atg jwt.TokenGenerator, rtg jwt.TokenGenerator) service {
+func New(pg pg.Store, atg jwt.TokenGenerator, rtg jwt.TokenGenerator) service {
 	return service{
-		mem: mem,
+		pg:  pg,
 		atg: atg,
 		rtg: rtg,
 	}

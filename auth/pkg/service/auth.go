@@ -14,7 +14,10 @@ var (
 )
 
 func (s service) Register(username string, password string) (entity.User, entity.AuthToken, error) {
-	newUser, err := s.mem.Register(username, password)
+	newUser, err := s.pg.Register(entity.User{
+		Username: username,
+		Password: password,
+	})
 
 	tokenClaims := jwtGo.MapClaims{"u": username}
 
