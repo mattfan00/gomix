@@ -10,7 +10,8 @@ type loginRequest struct {
 }
 
 type loginResponse struct {
-	Message string `json:"message"`
+	User   entity.User      `json:"user"`
+	Tokens entity.AuthToken `json:"tokens"`
 }
 
 type registerRequest struct {

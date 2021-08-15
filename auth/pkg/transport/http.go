@@ -52,12 +52,13 @@ func (r routeHandler) login(c echo.Context) error {
 		return err
 	}
 
-	message, err := r.svc.Login(body.Username, body.Password)
+	foundUser, authToken, err := r.svc.Login(body.Username, body.Password)
 	if err != nil {
 		return err
 	}
 
 	return c.JSON(http.StatusOK, loginResponse{
-		Message: message,
+		User:   foundUser,
+		Tokens: authToken,
 	})
 }
